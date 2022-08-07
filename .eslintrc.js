@@ -12,7 +12,5 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['react'],
-  rules: {
-    skipBlankLines: true,
-  },
+  rules: { lineBreakStyle: false },
 };
