@@ -1,5 +1,5 @@
 import { StyleSheet, View, Dimensions } from 'react-native';
-import React, { useState } from 'react';
+import React from 'react';
 import { TextInput, Text, Button } from 'react-native-paper';
 import { Formik } from 'formik';
 import * as yup from 'yup';
@@ -35,12 +35,13 @@ const AddClients = () => {
         onSubmit={(values) => {
           axios
             .post(`${baseURL}clients`, values)
-            .then((response) => {console.log(response);
+            .then((response) => {
+              console.log(response);
             })
             .catch((e) => console.log(e));
         }}
       >
-        {({ handleChange, handleBlur, handleSubmit, values, errors, isValid }) => (
+        {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
           <View style={styles.view}>
             <TextInput
               placeholder={initialData.name}
@@ -95,7 +96,7 @@ const AddClients = () => {
 
 const styles = StyleSheet.create({
   input: {
-    fontSize: 14,
+    fontSize: 16,
     padding: 0,
     backgroundColor: '#f2f2f2',
     margin: 0,
@@ -113,6 +114,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
   },
-  text: { fontSize: 15, marginTop: 25 },
+  text: { fontSize: 20 },
 });
 export default AddClients;

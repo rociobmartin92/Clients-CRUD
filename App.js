@@ -1,7 +1,8 @@
 import React from 'react';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { NavigationContainer } from '@react-navigation/native';
 import StackRoot from './src/stack';
-import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import LoadingProvider from './src/context/LoadingProvider';
 
 export const theme = {
   ...DefaultTheme,
@@ -15,7 +16,9 @@ const App = () => {
   return (
     <PaperProvider>
       <NavigationContainer>
-        <StackRoot />
+        <LoadingProvider>
+          <StackRoot />
+        </LoadingProvider>
       </NavigationContainer>
     </PaperProvider>
   );

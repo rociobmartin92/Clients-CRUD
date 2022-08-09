@@ -1,8 +1,8 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from '../views/Home';
-import AddClients from '../views/AddClients';
 import { theme } from '../../App';
+import AddClients from '../views/AddClients';
 import DetailsClients from '../views/DetailsClients';
 import TopBar from '../components/TopBar';
 
@@ -20,13 +20,24 @@ const StackRoot = () => {
       <Stack.Screen
         name="Inicio"
         component={Home}
-        options={({ navigation, route }) => ({
-          title: '',
-          headerLeft: (props) => (
-            <TopBar {...props} navigation={navigation} route={route} title="Cliente" icon="plus" />
-          ),
-          headerTitleAlign: 'center',
-        })}
+        options={({ navigation, route }) => {
+          return {
+            title: '',
+            // eslint-disable-next-line react/no-unstable-nested-components
+            headerLeft: (props) => {
+              return (
+                <TopBar
+                  {...props}
+                  navigation={navigation}
+                  route={route}
+                  title="Cliente"
+                  icon="plus"
+                />
+              );
+            },
+            headerTitleAlign: 'center',
+          };
+        }}
       />
       <Stack.Screen name="add" component={AddClients} options={{ title: 'Agregar cliente' }} />
       <Stack.Screen
