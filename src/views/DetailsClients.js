@@ -5,6 +5,8 @@ import React from 'react';
 import axios from 'axios';
 
 const DetailsClients = ({ route, navigation }) => {
+  console.log(route.params);
+
   const { name, phone, company, email, id, setRefresh, refresh } = route.params;
 
   const handleDeleteClient = async (id) => {
@@ -29,7 +31,7 @@ const DetailsClients = ({ route, navigation }) => {
       </Text>
 
       <Button
-        style={styles.fab}
+        style={styles.boton}
         mode="contained"
         icon="cancel"
         onPress={() => handleDeleteClient(id)}
@@ -37,7 +39,11 @@ const DetailsClients = ({ route, navigation }) => {
         Eliminar Cliente
       </Button>
 
-      <FAB style={styles.fab} icon="pencil" onPress={() => navigation.navigate('add')} />
+      <FAB
+        style={styles.fab}
+        icon="pencil"
+        onPress={() => navigation.navigate('add', { dataClient: route.params })}
+      />
     </View>
   );
 };
@@ -48,8 +54,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   boton: {
-    marginTop: 100,
-    backgroundColor: 'red',
+    backgroundColor: '#7fbfbf',
   },
   view: {
     alignItems: 'center',
@@ -60,7 +65,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   head: { marginBottom: 35 },
-  fab: { marginTop: 10, backgroundColor: '#7fbfbf' },
+  fab: { marginTop: 245, marginLeft: 210, backgroundColor: '#7fbfbf' },
 });
 
 export default DetailsClients;

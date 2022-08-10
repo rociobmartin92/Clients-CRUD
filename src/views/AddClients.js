@@ -26,28 +26,45 @@ const initialData = {
   company: '',
 };
 
-const AddClients = ({ navigation }) => {
+const AddClients = ({ navigation, route }) => {
   const { refresh, setRefresh } = useContext(LoadingContext);
+
+  const { dataClient } = route.params;
+  console.log(dataClient);
+
+  // In the next code, as we reuse the form to edit client, we are going to difference
+  // between creating or editing ... the key to this is know if we are receiving params from a route.
+
   return (
     <View style={styles.global}>
       <Text style={styles.text}> Nuevo Cliente:</Text>
       <Formik
         validationSchema={loginValidationSchema}
-        initialValues={initialData}
+        initialValues={dataClient ? dataClient : initialData}
+        // ----------------------
+        // Crete or Edit client:
         onSubmit={(values) => {
-          axios
-            .post(`${baseURL}clients`, values)
-            .then((response) => {
-              console.log(response);
-              setRefresh(!refresh);
-            })
-            .catch((e) => console.log(e));
+          dataClient.id
+            ? axios
+                .put(`${baseURL}clients/${dataClient.id}`, values)
+                .then((response) => {
+                  console.log(response);
+                  setRefresh(!refresh);
+                })
+                .catch((e) => console.log(e))
+            : axios
+                .post(`${baseURL}clients`, values)
+                .then((response) => {
+                  console.log(response);
+                  setRefresh(!refresh);
+                })
+                .catch((e) => console.log(e));
         }}
+        // ----------------------
       >
         {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
           <View style={styles.view}>
             <TextInput
-              placeholder={initialData.name}
               label="Nombre y Apellido:"
               style={styles.input}
               onChangeText={handleChange('name')}
@@ -56,7 +73,6 @@ const AddClients = ({ navigation }) => {
             />
             {errors.name && <Text style={{ fontSize: 10, color: 'red' }}>{errors.name}</Text>}
             <TextInput
-              placeholder={initialData.phone}
               label="Telefono:"
               style={styles.input}
               onChangeText={handleChange('phone')}
@@ -65,7 +81,6 @@ const AddClients = ({ navigation }) => {
             />
             {errors.phone && <Text style={{ fontSize: 10, color: 'red' }}>{errors.phone}</Text>}
             <TextInput
-              placeholder={initialData.email}
               label="Email:"
               style={styles.input}
               onChangeText={handleChange('email')}
@@ -74,7 +89,6 @@ const AddClients = ({ navigation }) => {
             />
             {errors.email && <Text style={{ fontSize: 10, color: 'red' }}>{errors.email}</Text>}
             <TextInput
-              placeholder={initialData.company}
               label="Empresa:"
               style={styles.input}
               onChangeText={handleChange('company')}
@@ -115,7 +129,7 @@ const styles = StyleSheet.create({
   },
   global: {
     alignItems: 'center',
-    borderColor: '#ac7670',
+    borderColor: '#ffa500',
     margin: 10,
     borderWidth: 4,
     justifyContent: 'center',

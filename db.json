@@ -3,9 +3,10 @@
     {
       "name": "Rocio Martin",
       "phone": "234567",
-      "email": "ro@gmail.com",
+      "email": "rocio@gmail.com",
       "company": "Hexagon",
-      "id": 6
+      "id": 6,
+      "refresh": false
     },
     {
       "name": "Diego Marmol",

@@ -36,7 +36,13 @@ const Home = ({ navigation }) => {
               title={item.name}
               description={item.company}
               key={item.id}
-              onPress={() => navigation.navigate('details', { ...item, setRefresh, refresh })}
+              onPress={() =>
+                navigation.navigate('details', {
+                  ...item,
+                  setRefresh: setRefresh,
+                  refresh: refresh,
+                })
+              }
             />
           )}
         />
