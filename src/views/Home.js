@@ -7,11 +7,10 @@ import { List, Headline } from 'react-native-paper';
 import { LoadingContext } from '../context/LoadingProvider';
 import Loading from '../components/Loading';
 
-const Home = () => {
-  const [clients, setClients] = useState([]);
-  const { loading, setLoading } = useContext(LoadingContext);
 
-  console.log(loading);
+const Home = ({ navigation }) => {
+  const [clients, setClients] = useState([]);
+  const { loading, setLoading, refresh } = useContext(LoadingContext);
 
   useEffect(() => {
     setLoading(true);
@@ -25,7 +24,7 @@ const Home = () => {
     return () => {
       setClients([]);
     };
-  }, []);
+  }, [refresh]);
 
   return (
     <View style={styles.view}>
@@ -34,7 +33,12 @@ const Home = () => {
         <FlatList
           data={clients}
           renderItem={({ item }) => (
-            <List.Item title={item.name} description={item.company} key={item.id} />
+            <List.Item
+              title={item.name}
+              description={item.company}
+              key={item.id}
+              onPress={() => navigation.navigate('details', { ...item })}
+            />
           )}
         />
       </View>
@@ -45,7 +49,7 @@ const Home = () => {
 
 const styles = StyleSheet.create({
   head: { alignSelf: 'center', marginTop: 10 },
-  view: { borderColor: '#ac7670', margin: 10, borderWidth: 4, flex: 1 },
+  view: { borderColor: '#bbe79c', margin: 10, borderWidth: 4, flex: 1 },
 });
 
 export default Home;
