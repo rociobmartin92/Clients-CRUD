@@ -1,10 +1,11 @@
 import { StyleSheet, View, Dimensions } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import { TextInput, Text, Button } from 'react-native-paper';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import baseURL from '../conection/baseURL';
 import axios from 'axios';
+import { LoadingContext } from '../context/LoadingProvider';
 
 const loginValidationSchema = yup.object().shape({
   email: yup
@@ -25,7 +26,8 @@ const initialData = {
   company: '',
 };
 
-const AddClients = () => {
+const AddClients = ({ navigation }) => {
+  const { refresh, setRefresh } = useContext(LoadingContext);
   return (
     <View style={styles.global}>
       <Text style={styles.text}> Nuevo Cliente:</Text>
@@ -37,6 +39,7 @@ const AddClients = () => {
             .post(`${baseURL}clients`, values)
             .then((response) => {
               console.log(response);
+              setRefresh(!refresh);
             })
             .catch((e) => console.log(e));
         }}
@@ -81,9 +84,13 @@ const AddClients = () => {
             {errors.company && <Text style={{ fontSize: 10, color: 'red' }}>{errors.company}</Text>}
             <Button
               icon="check-circle"
+              backgroundColor="#c89ce7"
               labelStyle={{ fontSize: 15, margin: 0, padding: 0 }}
               mode="outlined"
-              onPress={() => handleSubmit()}
+              onPress={() => {
+                handleSubmit();
+                navigation.navigate('Inicio');
+              }}
             >
               ok
             </Button>
@@ -96,7 +103,7 @@ const AddClients = () => {
 
 const styles = StyleSheet.create({
   input: {
-    fontSize: 16,
+    fontSize: 17,
     padding: 0,
     backgroundColor: '#f2f2f2',
     margin: 0,
@@ -114,6 +121,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
   },
-  text: { fontSize: 20 },
+  text: { fontSize: 21 },
 });
 export default AddClients;

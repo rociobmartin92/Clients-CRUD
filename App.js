@@ -8,7 +8,8 @@ export const theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#ac7670',
+    primary: '#c89ce7',
+    secondary: '#bbe79c',
   },
 };
 

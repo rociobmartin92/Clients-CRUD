@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'react-native-paper';
 
-const TopBar = ({ navigation, route, title, icon }) => {
+const TopBar = ({ navigation, title, icon }) => {
   const handleAddClient = () => {
     navigation.navigate('add');
   };
