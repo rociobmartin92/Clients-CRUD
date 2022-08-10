@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { Headline, Button, Subheading } from 'react-native-paper';
+import { Headline, Button, Subheading, FAB } from 'react-native-paper';
 import baseURL from '../conection/baseURL';
 import React from 'react';
 import axios from 'axios';
@@ -29,21 +29,15 @@ const DetailsClients = ({ route, navigation }) => {
       </Text>
 
       <Button
-        style={styles.boton}
+        style={styles.fab}
         mode="contained"
         icon="cancel"
         onPress={() => handleDeleteClient(id)}
       >
         Eliminar Cliente
       </Button>
-      {/* 
-      <FAB
-        icon="pencil"
-        style={globalStyles.fab}
-        onPress={() =>
-          navigation.navigate('NuevoCliente', { cliente: route.params.item, guardarConsultarAPI })
-        }
-      /> */}
+
+      <FAB style={styles.fab} icon="pencil" onPress={() => navigation.navigate('add')} />
     </View>
   );
 };
@@ -66,6 +60,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   head: { marginBottom: 35 },
+  fab: { marginTop: 10, backgroundColor: '#7fbfbf' },
 });
 
 export default DetailsClients;
