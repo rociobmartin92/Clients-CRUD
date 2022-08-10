@@ -7,10 +7,9 @@ import { List, Headline } from 'react-native-paper';
 import { LoadingContext } from '../context/LoadingProvider';
 import Loading from '../components/Loading';
 
-
 const Home = ({ navigation }) => {
   const [clients, setClients] = useState([]);
-  const { loading, setLoading, refresh } = useContext(LoadingContext);
+  const { loading, setLoading, refresh, setRefresh } = useContext(LoadingContext);
 
   useEffect(() => {
     setLoading(true);
@@ -37,7 +36,7 @@ const Home = ({ navigation }) => {
               title={item.name}
               description={item.company}
               key={item.id}
-              onPress={() => navigation.navigate('details', { ...item })}
+              onPress={() => navigation.navigate('details', { ...item, setRefresh, refresh })}
             />
           )}
         />

@@ -5,12 +5,12 @@ import React from 'react';
 import axios from 'axios';
 
 const DetailsClients = ({ route, navigation }) => {
-  const { name, phone, company, email, id } = route.params;
+  const { name, phone, company, email, id, setRefresh, refresh } = route.params;
 
   const handleDeleteClient = async (id) => {
     await axios
       .delete(`${baseURL}clients/${id}`)
-      .then((res) => console.log(res))
+      .then((res) => setRefresh(!refresh))
       .catch((e) => console.log(e));
     navigation.navigate('Inicio');
   };
